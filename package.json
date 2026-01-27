@@ -2,9 +2,12 @@
   "name": "frontend",
   "private": true,
   "version": "0.0.0",
+  "homepage": "https://bhoopendrachaurasia.github.io/frontend/",
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "predeploy": "npm run build",
+    "deploy": "frontend -d build",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
