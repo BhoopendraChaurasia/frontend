@@ -9,5 +9,9 @@ export default defineConfig({
     react(), 
     tailwindcss()
   ],
-  base: "/frontend"
+  base: "/frontend/",
+  server: {
+    open: true,
+    port: 3001,
+  }
 })

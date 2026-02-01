@@ -1,0 +1,32 @@
+name: "Frontend deployment"
+permissions: 
+    contents: "write"
+on:
+    workflow_dispatch:
+    push: 
+        branches:
+            - main
+jobs:
+    build-deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout-frontend
+              uses: actions/checkout@v3
+
+            - name: Node js setup
+              uses: actions/setup-node@v3
+              with:
+                node-version: 22
+
+            - name: Install dependency
+              run: npm i
+
+            #build the project
+            - name: Build project
+              run: npm run build
+            - name: Deploy gh pages
+              uses: peaceiris/actions-gh-pages@v3
+              with:
+                github_token: ${{ secrets.GITHUB_TOKEN }}
+                publish_dir: ./dist
+                force_orphan: true
