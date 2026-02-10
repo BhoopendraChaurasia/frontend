@@ -1,50 +1,5 @@
-import {
-    FaCode,
-    FaPaintBrush,
-    FaMobileAlt,
-    FaCloud,
-    FaRocket,
-    FaShieldAlt,
-} from "react-icons/fa";
-
-const services = [
-    {
-        title: "Web Development",
-        description:
-            "Modern, scalable, and high-performance websites built with the latest technologies.",
-        icon: <FaCode />,
-    },
-    {
-        title: "UI / UX Design",
-        description:
-            "Beautiful, user-focused designs that convert visitors into customers.",
-        icon: <FaPaintBrush />,
-    },
-    {
-        title: "Mobile Apps",
-        description:
-            "Cross-platform mobile apps with smooth performance and stunning UI.",
-        icon: <FaMobileAlt />,
-    },
-    {
-        title: "Cloud Solutions",
-        description:
-            "Secure and scalable cloud infrastructure for your business.",
-        icon: <FaCloud />,
-    },
-    {
-        title: "Startup Launch",
-        description:
-            "From idea to launch — we help startups go live fast and strong.",
-        icon: <FaRocket />,
-    },
-    {
-        title: "Cyber Security",
-        description:
-            "Protect your digital assets with enterprise-grade security solutions.",
-        icon: <FaShieldAlt />,
-    },
-];
+import ServiceCard from '../components/common/ServiceCard.tsx';
+import {services} from '../data/Services.js'
 
 const Services = () => {
     return (
@@ -52,34 +7,17 @@ const Services = () => {
 
             {/* Header */}
             <div className="text-center text-white max-w-3xl mx-auto mb-16">
-                <h1 className="text-4xl md:text-5xl font-extrabold mb-4">
-                    Our Services 🚀
+                <h1 style={{ fontSize: '70px' }} className="md:text-5xl font-semibold mb-4">
+                    Our Services
                 </h1>
-                <p className="text-white/80 text-lg">
+                <p className="text-white/80 mt-10">
                     We craft digital experiences that help businesses grow and stand out.
                 </p>
             </div>
 
             {/* Services Grid */}
             <div className="max-w-6xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                {services.map((service, index) => (
-                    <div
-                        key={index}
-                        className="bg-white/20 backdrop-blur-xl rounded-2xl p-8 text-white shadow-2xl hover:scale-105 transition-transform duration-300"
-                    >
-                        <div className="text-4xl mb-4 text-yellow-300">
-                            {service.icon}
-                        </div>
-
-                        <h3 className="text-2xl font-bold mb-3">
-                            {service.title}
-                        </h3>
-
-                        <p className="text-white/80">
-                            {service.description}
-                        </p>
-                    </div>
-                ))}
+                {services.map((service, index) => <ServiceCard key={index} service={service} />)}
             </div>
 
             {/* CTA */}

@@ -1,5 +1,5 @@
 import { FaEnvelope, FaPhoneAlt, FaMapMarkerAlt } from "react-icons/fa";
-
+import { contact } from '../data/services';
 const Contact = () => {
     return (
         <div className="min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center px-4 py-12">
@@ -18,15 +18,15 @@ const Contact = () => {
                     <div className="space-y-4">
                         <div className="flex items-center gap-4">
                             <FaEnvelope className="text-2xl" />
-                            <span>contact@mybrand.com</span>
+                            <span>{contact.email}</span>
                         </div>
                         <div className="flex items-center gap-4">
                             <FaPhoneAlt className="text-2xl" />
-                            <span>+1 234 567 890</span>
+                            <span>{contact.phone}</span>
                         </div>
                         <div className="flex items-center gap-4">
                             <FaMapMarkerAlt className="text-2xl" />
-                            <span>New York, USA</span>
+                            <span>{contact.address}</span>
                         </div>
                     </div>
                 </div>

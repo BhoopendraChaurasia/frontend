@@ -8,7 +8,7 @@ export default function Home() {
                 <div className="container mx-auto flex flex-col md:flex-row items-center gap-8">
                     <div className="md:w-1/2">
                         <h1 className="text-4xl md:text-5xl font-extrabold leading-tight">
-                            Welcome to Student Management System
+                            We are making new developing new AI based product.
                         </h1>
                         <p className="mt-4 text-lg md:text-xl text-gray-200">
                             Organize, track, and manage student data smoothly and efficiently.

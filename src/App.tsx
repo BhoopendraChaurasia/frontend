@@ -16,8 +16,6 @@ interface RouteType {
 }
 
 function App() {
-
-
   const renderRoutes = (routesArray: RouteType[]) => {
     return routesArray.map((route) => {
       return <Route key={route.path} path={route.path} element={<route.element />} />;

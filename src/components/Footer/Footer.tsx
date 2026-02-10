@@ -1,16 +1,12 @@
-import {
-    FaFacebookF,
-    FaInstagram,
-    FaTwitter,
-    FaLinkedinIn,
-    FaEnvelope,
+
+import { NavLink, Link } from 'react-router-dom';
+import { menus } from '../../routes'
+import { contact, FooterIcon } from '../../data/Services'
+import { FaLocationCrosshairs } from "react-icons/fa6";
+import { FaEnvelope,
     FaPhone
 } from "react-icons/fa";
-import { NavLink } from 'react-router-dom';
-import { menus } from '../../routes'
-
 export default function Footer() {
-
 
     return (
         <footer className="bg-black text-white py-12">
@@ -23,18 +19,8 @@ export default function Footer() {
                         We build beautiful experiences on the web — clean, responsive, and fast.
                     </p>
                     <div className="flex space-x-4 text-xl">
-                        <a href="#" className="hover:text-yellow-300 transition">
-                            <FaFacebookF />
-                        </a>
-                        <a href="#" className="hover:text-yellow-300 transition">
-                            <FaInstagram />
-                        </a>
-                        <a href="#" className="hover:text-yellow-300 transition">
-                            <FaTwitter />
-                        </a>
-                        <a href="#" className="hover:text-yellow-300 transition">
-                            <FaLinkedinIn />
-                        </a>
+                        {FooterIcon.map((item: { url: string; icon: React.ComponentType }) => 
+                            <Link key={item.url} to={item.url} className="hover:text-yellow-300 transition">{<item.icon />}</Link>)}
                     </div>
                 </div>
 
@@ -51,14 +37,15 @@ export default function Footer() {
                     <h4 className="text-xl font-semibold">Contact Us</h4>
                     <p className="flex items-center space-x-2 hover:text-yellow-300 transition">
                         <FaPhone />
-                        <span>+91 12345 67890</span>
+                        <span>{contact.phone}</span>
                     </p>
                     <p className="flex items-center space-x-2 hover:text-yellow-300 transition">
                         <FaEnvelope />
-                        <span>hello@mybrand.com</span>
+                        <span>{contact.email}</span>
                     </p>
-                    <p className="text-gray-200">
-                        123 Web Street, Dev City, India
+                    <p className="flex items-center space-x-2 hover:text-yellow-300 transition">
+                        <FaLocationCrosshairs />
+                        <span>{contact.address}</span>
                     </p>
                 </div>
             </div>
