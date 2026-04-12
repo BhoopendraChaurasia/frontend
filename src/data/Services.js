@@ -10,8 +10,8 @@ import {
     FaTwitter,
     FaLinkedinIn,
   } from "react-icons/fa";
-
-export const services = [
+  
+const services = [
     {
         title: "Web Development",
         description:
@@ -51,8 +51,8 @@ export const services = [
 ];
 
 
-export const contact = { email: "contact@mybrand.com", phone: "8827975482", address: "Hyderabad, India"}
-export const FooterIcon = [
+const contact = { email: "contact@mybrand.com", phone: "8827975482", address: "Hyderabad, India" };
+const FooterIcon = [
     { title: 'Facebook', icon: FaFacebookF, url: 'https://www.facebook.com/' },
     { title: 'Instagram', icon: FaInstagram, url: 'https://www.instagram.com/' },
     { title: 'Twitter', icon: FaTwitter, url: 'https://www.twiiter.com/' },

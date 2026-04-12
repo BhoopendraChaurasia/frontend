@@ -1,12 +1,19 @@
 
 import { NavLink, Link } from 'react-router-dom';
 import { menus } from '../../routes'
-import { contact, FooterIcon } from '../../data/Services'
 import { FaLocationCrosshairs } from "react-icons/fa6";
 import { FaEnvelope,
-    FaPhone
+    FaPhone, FaFacebookF, FaInstagram, FaTwitter, FaLinkedinIn
 } from "react-icons/fa";
 export default function Footer() {
+
+    const FooterIcon = [
+        { title: 'Facebook', icon: FaFacebookF, url: 'https://www.facebook.com/' },
+        { title: 'Instagram', icon: FaInstagram, url: 'https://www.instagram.com/' },
+        { title: 'Twitter', icon: FaTwitter, url: 'https://www.twiiter.com/' },
+        { title: 'LinkedIn', icon: FaLinkedinIn, url: 'https://www.linkedin.com/' },
+    ];     
+    const contact = { email: "contact@mybrand.com", phone: "8827975482", address: "Hyderabad, India" };
 
     return (
         <footer className="bg-black text-white py-12">

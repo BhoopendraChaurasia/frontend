@@ -2,9 +2,11 @@ import { useNavigate } from 'react-router-dom';
 
 export default function ServiceCard({ key, service }: any) {
     const navigate = useNavigate();
+
     const contactHandler = () => {
         navigate('/contact');
     };
+
     return (
         <div key={key} className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-black to-gray-800 p-6">
             <div className="relative w-80 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl hover:scale-105 transition-transform duration-300">
@@ -15,7 +17,7 @@ export default function ServiceCard({ key, service }: any) {
                 <div className="p-6 text-center">
                     {/* Icon */}
                     <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-purple-600 text-white text-2xl shadow-lg">
-                        {< service.icon />}
+                        {<service.icon />}
                     </div>
 
                     {/* Title */}

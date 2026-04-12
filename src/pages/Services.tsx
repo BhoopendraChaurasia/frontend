@@ -1,7 +1,52 @@
+import {
+    FaCode,
+    FaPaintBrush,
+    FaMobileAlt,
+    FaCloud,
+    FaRocket,
+    FaShieldAlt
+} from "react-icons/fa";
 import ServiceCard from '../components/common/ServiceCard.tsx';
-import {services} from '../data/Services.js'
 
 const Services = () => {
+    const services = [
+        {
+            title: "Web Development",
+            description:
+                "Modern, scalable, and high-performance websites built with the latest technologies.",
+            icon: FaCode,
+        },
+        {
+            title: "UI / UX Design",
+            description:
+                "Beautiful, user-focused designs that convert visitors into customers.",
+            icon: FaPaintBrush,
+        },
+        {
+            title: "Mobile Apps",
+            description:
+                "Cross-platform mobile apps with smooth performance and stunning UI.",
+            icon: FaMobileAlt,
+        },
+        {
+            title: "Cloud Solutions",
+            description:
+                "Secure and scalable cloud infrastructure for your business.",
+            icon: FaCloud,
+        },
+        {
+            title: "Startup Launch",
+            description:
+                "From idea to launch — we help startups go live fast and strong.",
+            icon: FaRocket,
+        },
+        {
+            title: "Cyber Security",
+            description:
+                "Protect your digital assets with enterprise-grade security solutions.",
+            icon: FaShieldAlt,
+        },
+    ];
     return (
         <div className="min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 py-16 px-4">
 
