@@ -1,19 +1,52 @@
-import { useState } from "react";
-import { FaGoogle, FaFacebookF } from "react-icons/fa";
+import { useState, type FC } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "./registerSlice";
+import type { RegisterPayload } from "../types/common";
+import Input, { type FormField, type FormDataSignUp } from "./Input";
+import type { AppDispatch, RootState } from "../store/store";
+import Social from "./Social";
+import Button from "./Button";
+import FormFooter from "./FormFooter";
+import Message from "./Message";
+import Divider from "./Divider";
+import FormTitle from "./FormTitle";
+import FormGreet from "./FormGreet";
 
-const SignIn = () => {
-    const [formData, setFormData] = useState({
-        name: "",
+
+const SignUp: FC = () => {
+    
+    const dispatch = useDispatch<AppDispatch>();
+
+    const { loading, error } = useSelector(
+        (state: RootState) => state.register
+    );
+
+    const navigate = useNavigate();
+
+    const handleSignIn = () => {
+        navigate("/signin");
+    }
+
+    const [formData, setFormData] = useState<FormDataSignUp>({
+        firstName: "",
+        lastName: "",
         email: "",
         password: "",
         confirmPassword: "",
     });
 
-    const handleChange = (e:any) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        
+        const { name, value } = e.target;
+
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
     };
 
-    const handleSubmit = (e:any) => {
+    const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         if (formData.password !== formData.confirmPassword) {
@@ -21,101 +54,56 @@ const SignIn = () => {
             return;
         }
 
-        console.log("Signup Data:", formData);
+        const { confirmPassword, ...rest } = formData;
+
+        const payload: RegisterPayload = {
+            ...rest,
+            username: formData.firstName, // better than firstName
+            roles: "TRAINER",
+        };
+
+        const resultAction = await dispatch(registerUser(payload));
+
+        if (registerUser.fulfilled.match(resultAction)) {
+            navigate("/signin");
+        }
     };
 
+    const formFields: FormField[] = [
+        {type: "text", name: "firstName", placeholder: "First Name" },
+        {type: "text", name: "lastName", placeholder: "Last Name"},
+        {type: "text", name: "email", placeholder: "Email"},
+        {type: "password", name: "password", placeholder: "Password"},
+        {type: "password", name: "confirmPassword", placeholder: "Confirm Password" },
+    ];
+
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-600 to-purple-600 px-4">
+        <div className= "min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-600 to-purple-600 px-4" >
             <div className="bg-white p-8 my-15 rounded-2xl shadow-2xl w-full max-w-md">
-
-                {/* Header */}
-                <h2 className="text-3xl font-bold text-center text-gray-800">
-                    Create Account
-                </h2>
-                <p className="text-center text-gray-500 mb-6">
-                    Join us and start your journey 🚀
-                </p>
-
-                {/* Social Login */}
-                <div className="space-y-3">
-                    <button className="w-full flex items-center justify-center gap-3 border rounded-lg py-2 hover:bg-gray-100 transition">
-                        <FaGoogle className="text-red-500" />
-                        <span className="font-medium">Continue with Google</span>
-                    </button>
-
-                    <button className="w-full flex items-center justify-center gap-3 bg-blue-600 text-white rounded-lg py-2 hover:bg-blue-500 transition">
-                        <FaFacebookF />
-                        <span className="font-medium">Continue with Facebook</span>
-                    </button>
-                </div>
-
-                {/* Divider */}
-                <div className="flex items-center my-6">
-                    <div className="flex-grow h-px bg-gray-300"></div>
-                    <span className="px-3 text-gray-400 text-sm">OR</span>
-                    <div className="flex-grow h-px bg-gray-300"></div>
-                </div>
-
-                {/* Form */}
-                <form onSubmit={handleSubmit} className="space-y-4">
-                    <input
-                        type="text"
-                        name="name"
-                        placeholder="Full Name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        required
-                        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                    />
-
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="Email Address"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                    />
-
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        required
-                        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                    />
-
-                    <input
-                        type="password"
-                        name="confirmPassword"
-                        placeholder="Confirm Password"
-                        value={formData.confirmPassword}
-                        onChange={handleChange}
-                        required
-                        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                    />
-
-                    <button
-                        type="submit"
-                        className="w-full bg-indigo-600 text-white py-2 rounded-lg font-semibold hover:bg-indigo-500 transition shadow-md"
-                    >
-                        Create Account
-                    </button>
+                {/* Header */ }
+                { error !== null && <Message message={ error } /> }
+                <FormTitle title="Create Account" />
+                <FormGreet text="Join us and start your journey 🚀" /> 
+                {/* Social Login */ }
+                <Social />
+                {/* Divider */ }
+                <Divider />
+                {/* Form */ }
+                <form onSubmit={ handleSubmit } className = "space-y-4" >
+                    {formFields.length > 0 && formFields.map(field => (
+                        <Input
+                            key={field.name}
+                            {...field}
+                            value = { formData[field.name as keyof FormDataSignUp] }
+                            onChange = { handleChange }
+                        />
+                    ))}
+                    <Button loading={ loading } title="Create Account" />
                 </form>
-
-                {/* Footer */}
-                <p className="text-sm text-center text-gray-600 mt-6">
-                    Already have an account?{" "}
-                    <span className="text-indigo-600 hover:underline cursor-pointer">
-                        Login
-                    </span>
-                </p>
+                {/* Footer */ }
+                <FormFooter text="Already have an account ? " routeTitle = "Login" onClick = { handleSignIn } />
             </div>
         </div>
-    );
+    )
 };
-
-export default SignIn;
+export default SignUp;

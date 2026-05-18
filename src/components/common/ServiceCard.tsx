@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-export default function ServiceCard({ key, service }: any) {
+export default function ServiceCard({ service }: any) {
     const navigate = useNavigate();
 
     const contactHandler = () => {
@@ -8,7 +8,7 @@ export default function ServiceCard({ key, service }: any) {
     };
 
     return (
-        <div key={key} className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-black to-gray-800 p-6">
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-black to-gray-800 p-6">
             <div className="relative w-80 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl hover:scale-105 transition-transform duration-300">
 
                 {/* Gradient Accent */}

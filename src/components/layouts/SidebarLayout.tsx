@@ -1,16 +1,13 @@
 import { IoIosArrowForward, IoIosArrowDown } from "react-icons/io";
 import {useState} from 'react';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function SidebarLayout() {
     const [isOpen, setIsOpen] = useState(true);
     const handleLink = () => setIsOpen(!isOpen);
-    const params = useParams();
     const navigate = useNavigate();
     const location = useLocation();
-    console.log(params);
-    console.log(navigate);
-    console.log(location);
+    
     navigate(`${location.pathname}/introduction`);
     return (
         <>

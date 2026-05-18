@@ -1,34 +1,57 @@
-// routes.ts
-import { lazy } from 'react'
-import type { Menus, RouteType } from './features/types/common'
-
-const Home = lazy(() => import("./pages/Home"));
-const About = lazy(() => import("./pages/About"));
-const Services = lazy(() => import("./pages/Services"));
-const DocsPage = lazy(() => import("./components/layouts/SidebarLayout"));
-const Contact = lazy(() => import("./pages/Contact"));
-const SignUp = lazy(() => import("./features/auth/SignUp"));
-const SignIn = lazy(() => import("./features/auth/SignIn"));
-const UserProfile = lazy(() => import("./features/user/UserProfile"));
-const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
-
+import { createElement, type ReactNode } from "react";
+import type { Menus } from "./features/types/common";
+import ProtectedRoute from "./components/common/ProtectedRoute";
+import PublicRoute from "./components/common/PublicRoute";
+import Home from "@/pages/Home";
+import About from "@/pages/About";
+import Services from "@/pages/Services";
+import DocsPage from "@/components/layouts/SidebarLayout";
+import Course from "./pages/Course";
+import Contact from "@/pages/Contact";
+import SignUp from "@/features/auth/SignUp";
+import SignIn from "@/features/auth/SignIn";
+import UserProfile from "@/features/user/UserProfile";
+import NotFoundPage from "@/pages/NotFoundPage";
+import AuthLayout from "./components/layouts/AuthLayout";
+import type { Middleware, RouteType } from "@/features/types/common";
 
 export const menus: Menus[] = [
     { path: "/", title: "Home" },
     { path: "/about", title: "About" },
     { path: "/services", title: "Services" },
     { path: "/docs", title: "Docs" },
-    { path: "/contact", title: "Contact" }
+    { path: "/course", title: "Course" },
+    { path: "/contact", title: "Contact" },
 ];
 
-export const routes: RouteType[] = [
-    { path: "/", element: Home, name: "Home" },
-    { path: "/about", element: About, name: "About" },
-    { path: "/services", element: Services, name: "Services" },
-    { path: "/docs", element: DocsPage, name: "Docs"},
-    { path: "/contact", element: Contact, name: "Contact" },
-    { path: "/signup", element: SignUp, name: "SignUp" },
-    { path: "/signin", element: SignIn, name: "SignIn" },
-    { path: "/userprofile", element: UserProfile, name: "UserProfile" },
-    { path: "*", element: NotFoundPage, name: "" },
+const withAuth: Middleware = (children: ReactNode) =>
+    createElement(ProtectedRoute, null, children);
+
+const withoutAuth: Middleware = (children: ReactNode) =>
+    createElement(PublicRoute, null, children);
+
+
+export const routes: RouteType = [
+    { path: "/", Component: Home },
+    { path: "/about", Component: About  },
+    { path: "/services", Component: Services },
+    { path: "/docs", Component: DocsPage },
+    { path: "/course", Component: Course },
+    { path: "/contact", Component: Contact },
+
+    {
+        path: "/",
+        middleware: [withoutAuth],
+        Component: AuthLayout,
+        children: [
+            { path: "signup", Component: SignUp },
+            { path: "signin", Component: SignIn },
+        ],
+    },
+    {
+        path: "/userprofile",
+        middleware: [withAuth],
+        Component: UserProfile
+    },
+    { path: "*", Component: NotFoundPage },
 ];

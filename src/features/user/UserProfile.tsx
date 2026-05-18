@@ -1,6 +1,20 @@
+
 import { FaEdit, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
+import {useEffect} from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { userProfile } from "../auth/profileSlice";
 
 const UserProfile = () => {
+
+    const token = localStorage.getItem("token");
+    const dispatch = useDispatch();
+    useEffect(() => {
+        if (token) {
+            dispatch(userProfile(token))
+        }
+    }, [token, dispatch]);
+    const { loading, error, data } = useSelector((state:any) => state.profile);
+
     return (
         <div className="min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 py-16 px-4">
 
@@ -21,14 +35,14 @@ const UserProfile = () => {
 
                 {/* Content */}
                 <div className="p-8 text-center text-white">
-                    <h2 className="text-3xl font-bold">John Doe</h2>
+                        <h2 className="text-3xl font-bold" > { data.firstName + " " + data.lastName }</h2>
                     <p className="text-white/80">Full Stack Developer</p>
 
                     {/* Info */}
                     <div className="flex justify-center gap-6 mt-4 text-white/90">
                         <div className="flex items-center gap-2">
                             <FaEnvelope />
-                            <span>john@example.com</span>
+                            <span>{data.email}</span>
                         </div>
                         <div className="flex items-center gap-2">
                             <FaMapMarkerAlt />

@@ -1,4 +1,5 @@
 import { FaEnvelope, FaPhoneAlt, FaMapMarkerAlt } from "react-icons/fa";
+
 const Contact = () => {
 
     const contact = { email: "contact@mybrand.com", phone: "8827975482", address: "Hyderabad, India" };

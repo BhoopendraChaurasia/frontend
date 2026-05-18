@@ -9,3 +9,20 @@ export interface AuthResponse {
     token: string;
     user: User;
 }
+
+export interface UserResponse {
+    id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    username: string;
+    roles: string;
+}
+
+export interface UserProfileState {
+    loading: boolean;
+    error: string | null;
+    data: UserResponse | 0;
+}
+
+
