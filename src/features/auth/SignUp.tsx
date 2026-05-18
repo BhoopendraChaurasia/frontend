@@ -1,9 +1,10 @@
-import { useState, type FC } from "react";
+import { useState, type FC, type ChangeEvent, type SubmitEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "./registerSlice";
 import type { RegisterPayload } from "../types/common";
-import Input, { type FormField, type FormDataSignUp } from "./Input";
+import Input from "./Input";
+import { type FormField, type FormDataSignUp } from "./auth.types";
 import type { AppDispatch, RootState } from "../store/store";
 import Social from "./Social";
 import Button from "./Button";
@@ -36,7 +37,7 @@ const SignUp: FC = () => {
         confirmPassword: "",
     });
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         
         const { name, value } = e.target;
 
@@ -46,7 +47,7 @@ const SignUp: FC = () => {
         }));
     };
 
-    const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         if (formData.password !== formData.confirmPassword) {

@@ -1,31 +1,4 @@
-export type InputProps = {
-
-    type: string;
-    name: string;
-    placeholder: string;
-    value: string;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-
-}
-
-export type FormDataSignUp = {
-    firstName : string;
-    lastName : string;
-    email : string;
-    password: string;
-    confirmPassword: string;
-}
-
-export type FormField = {
-    type: string;
-    name: keyof FormDataSignUp | string;
-    placeholder: string;
-}
-
-export type FormDataSignIn = {
-    username: string;
-    password: string;
-}
+import {type InputProps} from "./auth.types";
 
 const Input = (props: InputProps) => {
     return (

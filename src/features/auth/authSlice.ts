@@ -1,12 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import type { InitialState } from "../types/common";
 import { generateToken} from "../../services/authService";
+import { type FormDataSignIn } from "./auth.types";
 
 
 // Async login action
 export const loginUser = createAsyncThunk(
     "auth/loginUser",
-    async (credentials, thunkAPI) => {
+    async (credentials: FormDataSignIn, thunkAPI) => {
         try {
             const response = await generateToken(credentials);
 

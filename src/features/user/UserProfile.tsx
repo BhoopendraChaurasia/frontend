@@ -3,17 +3,18 @@ import { FaEdit, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 import {useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userProfile } from "../auth/profileSlice";
+import {type AppDispatch} from "../store/store";
 
 const UserProfile = () => {
 
     const token = localStorage.getItem("token");
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     useEffect(() => {
         if (token) {
             dispatch(userProfile(token))
         }
     }, [token, dispatch]);
-    const { loading, error, data } = useSelector((state:any) => state.profile);
+    const { data } = useSelector((state:any) => state.profile);
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 py-16 px-4">

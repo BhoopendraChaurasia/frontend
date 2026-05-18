@@ -1,9 +1,10 @@
-import { useState, useEffect, type FC } from "react";
+import { useState, useEffect, type FC, type SubmitEvent, type ChangeEvent } from "react";
 import { useNavigate, type NavigateFunction } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../store/store";
 import { clearError, loginUser } from "./authSlice";
-import Input, { type FormField, type FormDataSignIn } from "./Input";
+import Input from "./Input";
+import { type FormField, type FormDataSignIn } from "./auth.types";
 import Button from "./Button";
 import FormFooter from "./FormFooter";
 import Message from "./Message";
@@ -15,13 +16,14 @@ import FormGreet from "./FormGreet";
 
 const SignIn: FC = () => {
     const navigate: NavigateFunction = useNavigate();
-    const dispatch = useDispatch<AppDispatch>();
+    const useAppDispatch = () => useDispatch<AppDispatch>();
+    const dispatch = useAppDispatch();
     const { loading, error } = useSelector((state: RootState) => state.auth);
     const [formData, setFormData] = useState<FormDataSignIn>({
         username: "", 
         password: ""
     });
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setFormData((prev) => ({
             ...prev,
             [e.target.name]: e.target.value,
@@ -38,7 +40,8 @@ const SignIn: FC = () => {
     const handleSignUp = () => {
         navigate("/signup");
     };
-    const handleSubmit = async(e: React.SubmitEvent<HTMLFormElement>): Promise<void> => {
+    const handleSubmit = async(e: SubmitEvent<HTMLFormElement>): Promise<void> => {
+        
         e.preventDefault();
         
         const result = await dispatch(loginUser(formData));

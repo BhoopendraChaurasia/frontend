@@ -1,20 +1,26 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, type AsyncThunkConfig } from "@reduxjs/toolkit";
 import { getAllCourses } from "../../services/courseService";
 
-export const courseList = createAsyncThunk(
+export const courseList = createAsyncThunk<any, void, AsyncThunkConfig>(
     "/course/courseList",
     async () => {
         try {
             const response = await getAllCourses();
             return response.data;
         } catch(error) {
-
+            
         }
     }
 );
 
+type State = {
+    loading: boolean;
+    error: string | null;
+    data: any[]; // replace `any` with your actual type
+};
 
-const initialState = {
+
+const initialState : State = {
     loading: false,
     error: null,
     data: [],
@@ -36,7 +42,7 @@ export const coursesSlice = createSlice({
             })
             .addCase(courseList.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload || "Some issue fetch course";
+                state.error = action.payload as string || "Some issue fetch course";
             })
     }
 });

@@ -1,4 +1,4 @@
-const FormGreet = ({text}) => {
+const FormGreet = ({text}: any) => {
     return (
         <p className="text-center text-gray-500 mb-6" >
             {text}

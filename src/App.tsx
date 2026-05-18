@@ -1,7 +1,7 @@
-import { Suspense, type FC, type ReactNode } from 'react'
+import { Suspense, type ReactNode } from 'react'
 import './App.css'
 
-import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import { HashRouter as Router, Routes, Route } from 'react-router-dom'
 import { routes } from './routes' 
 import Header from './components/Header/Header'
 import Footer from './components/Footer/Footer'
@@ -9,7 +9,6 @@ import ScrollToTop from './components/common/ScrollToTop'
 import RootLoader from "./components/common/RootLoader";
 import Loader from "./components/common/Loader";
 import type { RouteType } from "./features/types/common";
-import { token } from "./features/auth/authSlice";
 
 
 function App() {
@@ -31,7 +30,7 @@ function App() {
       }
 
       if (middleware?.length && renderedElement) {
-        renderedElement = middleware.reduceRight(
+        renderedElement = middleware.reduceRight<ReactNode>(
           (acc, mw) => mw(acc),
           renderedElement
         );
@@ -42,6 +41,7 @@ function App() {
           {children && renderRoutes(children)}
         </Route>
       );
+
     });
   };
 

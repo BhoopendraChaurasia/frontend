@@ -1,6 +1,8 @@
 import {useEffect, type FC} from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { courseList } from "../features/course/courseSlice";
+import {type AppDispatch} from "../features/store/store";
+
 
 const courses = [
     {
@@ -35,12 +37,13 @@ const courses = [
 
 const Course: FC = () => {
 
-    const dispatch  = useDispatch();
+    const dispatch = useDispatch <AppDispatch>();
+    
     useEffect(() => {
         dispatch(courseList());
     }, [dispatch]);
 
-    const {loading, error, data: courses1} = useSelector((state: any) => state.courses);
+    // const {loading, error, data: courses1} = useSelector((state: any) => state.courses);
 
     return (
 

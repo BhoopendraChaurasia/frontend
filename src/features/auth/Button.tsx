@@ -1,6 +1,6 @@
 import Loader from "../../components/common/Loader";
 
-const Button = ({loading, title}) => {
+const Button = ({loading, title}: any) => {
     return (
         <button
             type="submit"

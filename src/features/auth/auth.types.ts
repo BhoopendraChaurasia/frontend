@@ -10,6 +10,36 @@ export interface AuthResponse {
     user: User;
 }
 
+
+export type InputProps = {
+
+    type: string;
+    name: string;
+    placeholder: string;
+    value: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+
+}
+
+export type FormDataSignUp = {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+}
+
+export type FormField = {
+    type: string;
+    name: keyof FormDataSignUp | string;
+    placeholder: string;
+}
+
+export type FormDataSignIn = {
+    username: string;
+    password: string;
+}
+
 export interface UserResponse {
     id: string;
     firstName: string;
@@ -24,5 +54,8 @@ export interface UserProfileState {
     error: string | null;
     data: UserResponse | 0;
 }
+
+
+
 
 

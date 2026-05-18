@@ -1,8 +1,9 @@
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
+import { type ReactNode } from "react";
 
 interface Props {
-    children: { children: React.ReactNode }
+    children: ReactNode; 
 }
 
 const ProtecterRoute = ({children}: Props) => {
